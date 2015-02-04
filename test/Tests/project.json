@@ -1,0 +1,15 @@
+{
+	"version": "1.0.0-*",
+	"dependencies": {
+		"Xunit.KRunner": "1.0.0-beta2",
+		"AspNet.Identity3.MongoDB": "1.0.0-*"
+	},
+
+	"frameworks": {
+		"aspnet50": { }
+	},
+
+	"commands": {
+		"test": "Xunit.KRunner -parallel none"
+	}
+}

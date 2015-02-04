@@ -1,0 +1,55 @@
+﻿using Microsoft.AspNet.Identity;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Conventions;
+using MongoDB.Bson.Serialization.Serializers;
+using MongoDB.Driver;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+
+namespace AspNet.Identity3.MongoDB
+{
+    public class MongoIdentityContext<TUser, TRole>
+        where TUser : MongoIdentityUser
+        where TRole : MongoIdentityRole
+    {
+		public IMongoCollection<TUser> Users { get; set; }
+		public IMongoCollection<TRole> Roles { get; set; }
+
+		public MongoIdentityContext()
+		{
+            RegisterConventionToNotSerializeEmptyLists();
+            RegisterMappings();
+		}
+
+        protected void RegisterMappings()
+        {
+            if (!BsonClassMap.IsClassMapRegistered(typeof(IdentityUser<string>)))
+            {
+                BsonClassMap.RegisterClassMap<IdentityUser<string>>(cm =>
+                {
+                    cm.AutoMap();
+                    cm.IdMemberMap.SetSerializer(new StringSerializer(BsonType.ObjectId));
+                });
+            }
+        }
+
+        private static void RegisterConventionToNotSerializeEmptyLists()
+        {
+            var pack = new ConventionPack();
+            pack.AddMemberMapConvention("Do not serialize empty lists", m =>
+            {
+                if (typeof(ICollection).IsAssignableFrom(m.MemberType))
+                {
+                    m.SetShouldSerializeMethod(instance =>
+                    {
+                        var value = (ICollection)m.Getter(instance);
+                        return value != null && value.Count > 0;
+                    });
+                }
+            });
+            ConventionRegistry.Register("Do not serialize empty lists", pack, t => true);
+        }
+    }
+}
