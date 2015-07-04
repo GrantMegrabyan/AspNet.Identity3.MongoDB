@@ -11,8 +11,8 @@ using System.Collections.Generic;
 namespace AspNet.Identity3.MongoDB
 {
     public class MongoIdentityContext<TUser, TRole>
-        where TUser : MongoIdentityUser
-        where TRole : MongoIdentityRole
+        where TUser : IdentityUser
+        where TRole : IdentityRole
     {
 		public IMongoCollection<TUser> Users { get; set; }
 		public IMongoCollection<TRole> Roles { get; set; }
@@ -25,9 +25,9 @@ namespace AspNet.Identity3.MongoDB
 
         protected void RegisterMappings()
         {
-            if (!BsonClassMap.IsClassMapRegistered(typeof(IdentityUser<string>)))
+            if (!BsonClassMap.IsClassMapRegistered(typeof(IdentityUser)))
             {
-                BsonClassMap.RegisterClassMap<IdentityUser<string>>(cm =>
+                BsonClassMap.RegisterClassMap<IdentityUser>(cm =>
                 {
                     cm.AutoMap();
                     cm.IdMemberMap.SetSerializer(new StringSerializer(BsonType.ObjectId));

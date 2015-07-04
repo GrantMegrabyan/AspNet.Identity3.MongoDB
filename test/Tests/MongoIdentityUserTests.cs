@@ -6,13 +6,13 @@ using System.Security.Claims;
 
 namespace Tests
 {
-    public class MongoIdentityUserTests : IDisposable
+    public class IdentityUserTests : IDisposable
     {
-        private MongoIdentityContext<MongoIdentityUser, MongoIdentityRole> _context;
+        private MongoIdentityContext<IdentityUser, IdentityRole> _context;
 
-        public MongoIdentityUserTests()
+        public IdentityUserTests()
         {
-            _context = new MongoIdentityContext<MongoIdentityUser, MongoIdentityRole>();
+            _context = new MongoIdentityContext<IdentityUser, IdentityRole>();
         }
 
         public void Dispose()
@@ -23,7 +23,7 @@ namespace Tests
         [Fact]
         public void CreateUser_Id_IsAssigned()
         {
-            var user = new MongoIdentityUser();
+            var user = new IdentityUser();
 
             ObjectId userObjectId;
             ObjectId.TryParse(user.Id, out userObjectId);
@@ -33,33 +33,33 @@ namespace Tests
         }
 
         [Fact]
-        public void CreateUser_MyLogins_NotNull()
+        public void CreateUser_Logins_NotNull()
         {
-            var user = new MongoIdentityUser();
+            var user = new IdentityUser();
 
-            Assert.NotNull(user.MyLogins);
+            Assert.NotNull(user.Logins);
         }
 
         [Fact]
-        public void CreateUser_MyRoles_NotNull()
+        public void CreateUser_Roles_NotNull()
         {
-            var user = new MongoIdentityUser();
+            var user = new IdentityUser();
 
-            Assert.NotNull(user.MyRoles);
+            Assert.NotNull(user.Roles);
         }
 
         [Fact]
-        public void CreateUser_MyClaims_NotNull()
+        public void CreateUser_Claims_NotNull()
         {
-            var user = new MongoIdentityUser();
+            var user = new IdentityUser();
 
-            Assert.NotNull(user.MyClaims);
+            Assert.NotNull(user.Claims);
         }
 
         [Fact]
         public void UserWithoutClaims_AddClaim_OneClaimAdded()
         {
-            var user = new MongoIdentityUser();
+            var user = new IdentityUser();
 
             string claimType = "test-claim";
             string claimValue = "test-value";
@@ -68,15 +68,15 @@ namespace Tests
 
             user.AddClaim(claim);
 
-            Assert.Equal(1, user.MyClaims.Count);
-            Assert.Equal(claimType, user.MyClaims[0].Type);
-            Assert.Equal(claimValue, user.MyClaims[0].Value);
+            Assert.Equal(1, user.Claims.Count);
+            Assert.Equal(claimType, user.Claims[0].ClaimType);
+            Assert.Equal(claimValue, user.Claims[0].ClaimValue);
         }
 
         [Fact]
         public void UserWithoutClaims_RemoveClaim_DoesNothing()
         {
-            var user = new MongoIdentityUser();
+            var user = new IdentityUser();
 
             string claimType = "test-claim";
             string claimValue = "test-value";
@@ -85,13 +85,13 @@ namespace Tests
 
             user.RemoveClaim(claim);
 
-            Assert.Empty(user.MyClaims);
+            Assert.Empty(user.Claims);
         }
 
         [Fact]
         public void UserWithOneClaim_RemoveNonExistingClaim_DoesNothing()
         {
-            var user = new MongoIdentityUser();
+            var user = new IdentityUser();
 
             string claimType = "test-claim";
             string claimValue = "test-value";
@@ -101,15 +101,15 @@ namespace Tests
 
             user.RemoveClaim(new Claim("non-existing-type", "non-existing-value"));
 
-            Assert.Equal(1, user.MyClaims.Count);
-            Assert.Equal(claimType, user.MyClaims[0].Type);
-            Assert.Equal(claimValue, user.MyClaims[0].Value);
+            Assert.Equal(1, user.Claims.Count);
+            Assert.Equal(claimType, user.Claims[0].ClaimType);
+            Assert.Equal(claimValue, user.Claims[0].ClaimValue);
         }
 
         [Fact]
         public void UserWithOneClaim_RemoveClaimWithTheSameTypeButDifferentValue_DoesNothing()
         {
-            var user = new MongoIdentityUser();
+            var user = new IdentityUser();
 
             string claimType = "test-claim";
             string claimValue = "test-value";
@@ -119,15 +119,15 @@ namespace Tests
 
             user.RemoveClaim(new Claim(claimType, "non-existing-value"));
 
-            Assert.Equal(1, user.MyClaims.Count);
-            Assert.Equal(claimType, user.MyClaims[0].Type);
-            Assert.Equal(claimValue, user.MyClaims[0].Value);
+            Assert.Equal(1, user.Claims.Count);
+            Assert.Equal(claimType, user.Claims[0].ClaimType);
+            Assert.Equal(claimValue, user.Claims[0].ClaimValue);
         }
 
         [Fact]
         public void UserWithOneClaim_RemoveClaimWithTheSameValueButDifferentType_DoesNothing()
         {
-            var user = new MongoIdentityUser();
+            var user = new IdentityUser();
 
             string claimType = "test-claim";
             string claimValue = "test-value";
@@ -137,15 +137,15 @@ namespace Tests
 
             user.RemoveClaim(new Claim("non-existing-type", claimValue));
 
-            Assert.Equal(1, user.MyClaims.Count);
-            Assert.Equal(claimType, user.MyClaims[0].Type);
-            Assert.Equal(claimValue, user.MyClaims[0].Value);
+            Assert.Equal(1, user.Claims.Count);
+            Assert.Equal(claimType, user.Claims[0].ClaimType);
+            Assert.Equal(claimValue, user.Claims[0].ClaimValue);
         }
 
         [Fact]
         public void UserWithOneClaim_RemoveTheClaim_NoClaimsRemain()
         {
-            var user = new MongoIdentityUser();
+            var user = new IdentityUser();
 
             string claimType = "test-claim";
             string claimValue = "test-value";
@@ -156,13 +156,13 @@ namespace Tests
             user.AddClaim(claim1);
             user.RemoveClaim(claim2);
 
-            Assert.Empty(user.MyClaims);
+            Assert.Empty(user.Claims);
         }
 
         [Fact]
         public void UserWithTwoClaims_RemoveOneOfTheClaims_OtherClaimRemains()
         {
-            var user = new MongoIdentityUser();
+            var user = new IdentityUser();
 
             string claimType1 = "test-claim-1";
             string claimValue1 = "test-value-1";
@@ -177,9 +177,9 @@ namespace Tests
 
             user.RemoveClaim(new Claim(claimType1, claimValue1));
 
-            Assert.Equal(1, user.MyClaims.Count);
-            Assert.Equal(claimType2, user.MyClaims[0].Type);
-            Assert.Equal(claimValue2, user.MyClaims[0].Value);
+            Assert.Equal(1, user.Claims.Count);
+            Assert.Equal(claimType2, user.Claims[0].ClaimType);
+            Assert.Equal(claimValue2, user.Claims[0].ClaimValue);
         }
     }
 }

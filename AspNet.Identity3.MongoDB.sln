@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.22512.0
+VisualStudioVersion = 14.0.22823.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{9F58348B-99CC-4B35-9FDD-A2349B9AA655}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "AspNet.Identity3.MongoDB", "src\AspNet.Identity3.MongoDB\AspNet.Identity3.MongoDB.kproj", "{7A514343-6F0F-41B7-9C62-58D9C4BE48B0}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "AspNet.Identity3.MongoDB", "src\AspNet.Identity3.MongoDB\AspNet.Identity3.MongoDB.xproj", "{7A514343-6F0F-41B7-9C62-58D9C4BE48B0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1DBE4923-84F3-41A8-94DF-152D5960267B}"
 	ProjectSection(SolutionItems) = preProject
@@ -19,7 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{5BECD53C-63B6-4DBB-8653-75E774B71B3A}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Tests", "test\Tests\Tests.kproj", "{25CDB7C9-13C0-409B-814E-090A8EE367CA}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Tests", "test\Tests\Tests.xproj", "{25CDB7C9-13C0-409B-814E-090A8EE367CA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

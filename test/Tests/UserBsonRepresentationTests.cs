@@ -7,11 +7,11 @@ namespace Tests
 {
     public class UserBsonRepresentationTests : IDisposable
     {
-        private MongoIdentityContext<MongoIdentityUser, MongoIdentityRole> _context;
+        private MongoIdentityContext<IdentityUser, IdentityRole> _context;
 
         public UserBsonRepresentationTests()
         {
-            _context = new MongoIdentityContext<MongoIdentityUser, MongoIdentityRole>();
+            _context = new MongoIdentityContext<IdentityUser, IdentityRole>();
         }
 
         public void Dispose()
@@ -22,7 +22,7 @@ namespace Tests
         [Fact]
         public void User_Id_IsRepresentedAsBsonObjectId()
         {
-            var user = new MongoIdentityUser();
+            var user = new IdentityUser();
 
             var document = user.ToBsonDocument();
 
@@ -32,7 +32,7 @@ namespace Tests
         [Fact]
         public void UserWithoutLogins_MyLogins_AreIgnored()
         {
-            var user = new MongoIdentityUser();
+            var user = new IdentityUser();
 
             var document = user.ToBsonDocument();
 
@@ -42,7 +42,7 @@ namespace Tests
         [Fact]
         public void UserWithoutRoles_MyRoles_AreIgnored()
         {
-            var user = new MongoIdentityUser();
+            var user = new IdentityUser();
 
             var document = user.ToBsonDocument();
 
@@ -52,7 +52,7 @@ namespace Tests
         [Fact]
         public void UserWithoutClaims_MyClaims_AreIgnored()
         {
-            var user = new MongoIdentityUser();
+            var user = new IdentityUser();
 
             var document = user.ToBsonDocument();
 
