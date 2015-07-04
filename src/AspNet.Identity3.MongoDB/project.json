@@ -3,9 +3,9 @@
     "authors": [ "Grant Megrabyan" ],
     "description": "ASP.NET 5 Identity 3 provider with MongoDB as storage",
     "dependencies": {
-        "Microsoft.AspNet.Identity": "3.0.0-*",
+        "Microsoft.AspNet.Identity": "3.0.0-beta5",
         "MongoDB.Driver": "2.0.0-*",
-        "Microsoft.Framework.DependencyInjection": "1.0.0-beta5-*"
+        "Microsoft.Framework.DependencyInjection": "1.0.0-beta5"
     },
 
     "frameworks": {
