@@ -1,5 +1,6 @@
 ﻿using AspNet.Identity3.MongoDB;
 using Microsoft.AspNet.Identity;
+using Microsoft.Framework.DependencyInjection.Extensions;
 
 namespace Microsoft.Framework.DependencyInjection
 {
