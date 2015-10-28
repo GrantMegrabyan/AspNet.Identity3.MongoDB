@@ -8,20 +8,20 @@ namespace AspNet.Identity3.MongoDB
 {
     public class MongoIdentityServices
     {
-        public static IServiceCollection GetDefaultServices(
+        public static IEnumerable<ServiceDescriptor> GetDefaultServices(
             Type userType, Type roleType, Type contextType, IConfiguration config = null)
         {
             Type userStoreType = typeof(UserStore<,,>).MakeGenericType(userType, roleType, contextType);
             Type roleStoreType = typeof(RoleStore<,,>).MakeGenericType(userType, roleType, contextType);
 
-            var services = new ServiceCollection();
-            services.AddScoped(
+
+            yield return ServiceDescriptor.Scoped(
                 typeof(IUserStore<>).MakeGenericType(userType),
                 userStoreType);
-            services.AddScoped(
+
+            yield return ServiceDescriptor.Scoped(
                 typeof(IRoleStore<>).MakeGenericType(roleType),
                 roleStoreType);
-            return services;
         }
     }
 }
