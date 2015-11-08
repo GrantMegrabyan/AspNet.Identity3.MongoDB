@@ -14,7 +14,7 @@ Add dependency to you project.json:
         ...
 	    "dependencies": {
 		    ...,
-		    "AspNet.Identity3.MongoDB": "0.0.1"
+		    "AspNet.Identity3.MongoDB": "1.0.0-beta8"
 	    },
         ...
     }
