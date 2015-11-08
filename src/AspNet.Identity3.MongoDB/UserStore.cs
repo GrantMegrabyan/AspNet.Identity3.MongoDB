@@ -219,7 +219,7 @@ namespace AspNet.Identity3.MongoDB
             var logins = user.Logins
                 .Select(l => new UserLoginInfo(l.LoginProvider, l.ProviderKey, l.ProviderDisplayName));
 
-            return Task.FromResult((IList<UserLoginInfo>) logins);
+            return Task.FromResult((IList<UserLoginInfo>) logins.ToList());
         }
 
         public virtual async Task<TUser> FindByLoginAsync(string loginProvider, string providerKey,
@@ -308,7 +308,7 @@ namespace AspNet.Identity3.MongoDB
                 throw new ArgumentNullException(nameof(user));
             }
 
-            return Task.FromResult((IList<string>) user.Roles.Select(role => role.Name));
+            return Task.FromResult((IList<string>) user.Roles.Select(role => role.Name).ToList());
         }
 
         /// <summary>
