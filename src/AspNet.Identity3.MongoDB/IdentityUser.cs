@@ -9,7 +9,6 @@ namespace AspNet.Identity3.MongoDB
     {
         public IdentityUser()
         {
-            Id = ObjectId.GenerateNewId().ToString();
         }
 
         public IdentityUser(string userName) : this()
@@ -20,7 +19,7 @@ namespace AspNet.Identity3.MongoDB
         /// <summary>
         /// User Id
         /// </summary>
-        public virtual string Id { get; set; }
+        public virtual string Id { get; set; } = ObjectId.GenerateNewId().ToString();
 
         /// <summary>
         /// User name
@@ -87,7 +86,7 @@ namespace AspNet.Identity3.MongoDB
         /// <summary>
         /// Navigation property for users in the role
         /// </summary>
-        public virtual List<IdentityRole> Roles { get; set; } = new List<IdentityRole>();
+        public virtual List<IdentityRole> Roles { get; set;  } = new List<IdentityRole>();
 
         /// <summary>
         /// Navigation property for users claims

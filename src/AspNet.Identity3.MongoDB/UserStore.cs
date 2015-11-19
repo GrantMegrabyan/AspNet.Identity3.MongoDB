@@ -286,7 +286,7 @@ namespace AspNet.Identity3.MongoDB
                 throw new ArgumentException(ValueCannotBeNullOrEmpty, nameof(roleName));
             }
 
-            user.Roles.RemoveAll(role => role.Name.ToUpper() == roleName.ToUpper());
+            user.Roles.RemoveAll(role => string.Equals(role.Name, roleName, StringComparison.CurrentCultureIgnoreCase));
             return Task.FromResult(false);
         }
 
@@ -667,13 +667,7 @@ namespace AspNet.Identity3.MongoDB
             return Task.FromResult(false);
         }
 
-        public IQueryable<TUser> Users
-        {
-            get
-            {
-                return Context.Users.AsQueryable();
-            }
-        }
+        public IQueryable<TUser> Users => Context.Users.AsQueryable();
 
         public Task SetTwoFactorEnabledAsync(TUser user, bool enabled, CancellationToken cancellationToken = new CancellationToken())
         {
@@ -702,7 +696,7 @@ namespace AspNet.Identity3.MongoDB
         /// <param name="claim"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public async virtual Task<IList<TUser>> GetUsersForClaimAsync(Claim claim, 
+        public virtual async Task<IList<TUser>> GetUsersForClaimAsync(Claim claim, 
             CancellationToken cancellationToken = default(CancellationToken))
         {
             cancellationToken.ThrowIfCancellationRequested();
@@ -724,11 +718,11 @@ namespace AspNet.Identity3.MongoDB
         /// <param name="roleName"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public async virtual Task<IList<TUser>> GetUsersInRoleAsync(string roleName, 
+        public virtual async Task<IList<TUser>> GetUsersInRoleAsync(string roleName, 
             CancellationToken cancellationToken = default(CancellationToken))
         {
             cancellationToken.ThrowIfCancellationRequested();
-            if (String.IsNullOrEmpty(roleName))
+            if (string.IsNullOrEmpty(roleName))
             {
                 throw new ArgumentNullException(nameof(roleName));
             }

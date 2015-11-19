@@ -11,9 +11,8 @@ namespace AspNet.Identity3.MongoDB
         public static IEnumerable<ServiceDescriptor> GetDefaultServices(
             Type userType, Type roleType, Type contextType, IConfiguration config = null)
         {
-            Type userStoreType = typeof(UserStore<,,>).MakeGenericType(userType, roleType, contextType);
-            Type roleStoreType = typeof(RoleStore<,,>).MakeGenericType(userType, roleType, contextType);
-
+            var userStoreType = typeof(UserStore<,,>).MakeGenericType(userType, roleType, contextType);
+            var roleStoreType = typeof(RoleStore<,,>).MakeGenericType(userType, roleType, contextType);
 
             yield return ServiceDescriptor.Scoped(
                 typeof(IUserStore<>).MakeGenericType(userType),

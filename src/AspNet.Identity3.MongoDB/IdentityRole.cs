@@ -60,14 +60,11 @@ namespace AspNet.Identity3.MongoDB
 
         public virtual void ReplaceClaim(Claim claim, Claim newClaim)
         {
-            foreach (var userClaim in Claims)
+            foreach (var userClaim in Claims.Where(userClaim => userClaim.ClaimType == claim.Type &&
+                                                                userClaim.ClaimValue == claim.Value))
             {
-                if (userClaim.ClaimType == claim.Type &&
-                    userClaim.ClaimValue == claim.Value)
-                {
-                    userClaim.ClaimType = newClaim.Type;
-                    userClaim.ClaimValue = newClaim.Value;
-                }
+                userClaim.ClaimType = newClaim.Type;
+                userClaim.ClaimValue = newClaim.Value;
             }
         }
     }
