@@ -6,10 +6,7 @@ using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
-using MongoDB.Bson;
 using MongoDB.Driver;
-//using MongoDB.Driver.Builders;
-using MongoDB.Driver.Linq;
 
 namespace AspNet.Identity3.MongoDB
 {
@@ -219,7 +216,7 @@ namespace AspNet.Identity3.MongoDB
             var logins = user.Logins
                 .Select(l => new UserLoginInfo(l.LoginProvider, l.ProviderKey, l.ProviderDisplayName));
 
-            return Task.FromResult((IList<UserLoginInfo>) logins);
+            return Task.FromResult((IList<UserLoginInfo>) logins.ToList());
         }
 
         public virtual async Task<TUser> FindByLoginAsync(string loginProvider, string providerKey,
@@ -289,7 +286,7 @@ namespace AspNet.Identity3.MongoDB
                 throw new ArgumentException(ValueCannotBeNullOrEmpty, nameof(roleName));
             }
 
-            user.Roles.RemoveAll(role => role.Name.ToUpper() == roleName.ToUpper());
+            user.Roles.RemoveAll(role => string.Equals(role.Name, roleName, StringComparison.CurrentCultureIgnoreCase));
             return Task.FromResult(false);
         }
 
@@ -308,7 +305,7 @@ namespace AspNet.Identity3.MongoDB
                 throw new ArgumentNullException(nameof(user));
             }
 
-            return Task.FromResult((IList<string>) user.Roles.Select(role => role.Name));
+            return Task.FromResult((IList<string>) user.Roles.Select(role => role.Name).ToList());
         }
 
         /// <summary>
@@ -670,14 +667,7 @@ namespace AspNet.Identity3.MongoDB
             return Task.FromResult(false);
         }
 
-        public IQueryable<TUser> Users
-        {
-            get
-            {
-                //return _context.Users.AsQueryable<TUser>();
-                throw new NotImplementedException();
-            }
-        }
+        public IQueryable<TUser> Users => Context.Users.AsQueryable();
 
         public Task SetTwoFactorEnabledAsync(TUser user, bool enabled, CancellationToken cancellationToken = new CancellationToken())
         {
@@ -706,7 +696,7 @@ namespace AspNet.Identity3.MongoDB
         /// <param name="claim"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public async virtual Task<IList<TUser>> GetUsersForClaimAsync(Claim claim, 
+        public virtual async Task<IList<TUser>> GetUsersForClaimAsync(Claim claim, 
             CancellationToken cancellationToken = default(CancellationToken))
         {
             cancellationToken.ThrowIfCancellationRequested();
@@ -728,11 +718,11 @@ namespace AspNet.Identity3.MongoDB
         /// <param name="roleName"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public async virtual Task<IList<TUser>> GetUsersInRoleAsync(string roleName, 
+        public virtual async Task<IList<TUser>> GetUsersInRoleAsync(string roleName, 
             CancellationToken cancellationToken = default(CancellationToken))
         {
             cancellationToken.ThrowIfCancellationRequested();
-            if (String.IsNullOrEmpty(roleName))
+            if (string.IsNullOrEmpty(roleName))
             {
                 throw new ArgumentNullException(nameof(roleName));
             }

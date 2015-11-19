@@ -1,12 +1,9 @@
-﻿using Microsoft.AspNet.Identity;
-using MongoDB.Bson;
+﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
-using System;
 using System.Collections;
-using System.Collections.Generic;
 
 namespace AspNet.Identity3.MongoDB
 {

@@ -5,9 +5,7 @@ using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
-using MongoDB.Bson;
 using MongoDB.Driver;
-using MongoDB.Driver.Linq;
 
 namespace AspNet.Identity3.MongoDB
 {
@@ -31,12 +29,9 @@ namespace AspNet.Identity3.MongoDB
             ErrorDescriber = describer ?? new IdentityErrorDescriber();
         }
 
-        /// <summary>
-        /// Todo: MongoDB C# 2.0 driver does not support .AsQueryable() yet
-        /// </summary>
         public IQueryable<TRole> Roles
         {
-            get { throw new NotImplementedException("Roles"); }
+            get { return _context.Roles.AsQueryable(); }
         }
 
         public void Dispose()
@@ -199,11 +194,11 @@ namespace AspNet.Identity3.MongoDB
             cancellationToken.ThrowIfCancellationRequested();
             if (role == null)
             {
-                throw new ArgumentNullException("role");
+                throw new ArgumentNullException(nameof(role));
             }
             if (claim == null)
             {
-                throw new ArgumentNullException("claim");
+                throw new ArgumentNullException(nameof(claim));
             }
 
             role.RemoveClaim(claim);

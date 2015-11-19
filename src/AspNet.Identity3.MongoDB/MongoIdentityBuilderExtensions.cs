@@ -1,8 +1,7 @@
-﻿using AspNet.Identity3.MongoDB;
-using Microsoft.AspNet.Identity;
-using Microsoft.Framework.DependencyInjection.Extensions;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace Microsoft.Framework.DependencyInjection
+namespace AspNet.Identity3.MongoDB
 {
     public static class MongoIdentityBuilderExtensions
     {
