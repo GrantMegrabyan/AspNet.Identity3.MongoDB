@@ -6,10 +6,7 @@ using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
-using MongoDB.Bson;
 using MongoDB.Driver;
-//using MongoDB.Driver.Builders;
-using MongoDB.Driver.Linq;
 
 namespace AspNet.Identity3.MongoDB
 {
@@ -674,8 +671,7 @@ namespace AspNet.Identity3.MongoDB
         {
             get
             {
-                //return _context.Users.AsQueryable<TUser>();
-                throw new NotImplementedException();
+                return Context.Users.AsQueryable();
             }
         }
 

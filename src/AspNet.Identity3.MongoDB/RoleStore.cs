@@ -36,7 +36,7 @@ namespace AspNet.Identity3.MongoDB
         /// </summary>
         public IQueryable<TRole> Roles
         {
-            get { throw new NotImplementedException("Roles"); }
+            get { return _context.Roles.AsQueryable(); }
         }
 
         public void Dispose()
