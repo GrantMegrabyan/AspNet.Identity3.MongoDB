@@ -19,7 +19,7 @@ namespace AspNet.Identity3.MongoDB
         /// <summary>
         /// User Id
         /// </summary>
-        public virtual string Id { get; set; } = ObjectId.GenerateNewId().ToString();
+        public virtual ObjectId Id { get; set; } = ObjectId.GenerateNewId();
 
         /// <summary>
         /// User name

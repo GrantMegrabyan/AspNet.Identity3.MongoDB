@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace AspNet.Identity3.MongoDB
@@ -98,7 +99,7 @@ namespace AspNet.Identity3.MongoDB
             {
                 throw new ArgumentNullException(nameof(role));
             }
-            return Task.FromResult(role.Id);
+            return Task.FromResult(role.Id.ToString());
         }
 
         public Task<string> GetRoleNameAsync(
@@ -130,7 +131,7 @@ namespace AspNet.Identity3.MongoDB
         public virtual Task<TRole> FindByIdAsync(string roleId, CancellationToken cancellationToken = new CancellationToken())
         {
             cancellationToken.ThrowIfCancellationRequested();
-            return _context.Roles.Find(r => r.Id == roleId)
+            return _context.Roles.Find(r => r.Id == new ObjectId(roleId))
                 .FirstOrDefaultAsync(cancellationToken);
         }
 

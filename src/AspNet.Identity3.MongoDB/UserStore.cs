@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace AspNet.Identity3.MongoDB
@@ -58,7 +59,7 @@ namespace AspNet.Identity3.MongoDB
             {
                 throw new ArgumentNullException(nameof(user));
             }
-            return Task.FromResult(user.Id);
+            return Task.FromResult(user.Id.ToString());
         }
 
         public virtual Task<string> GetUserNameAsync(TUser user, CancellationToken cancellationToken = new CancellationToken())
@@ -149,7 +150,7 @@ namespace AspNet.Identity3.MongoDB
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            return Context.Users.Find(a => a.Id == userId)
+            return Context.Users.Find(a => a.Id == new ObjectId(userId))
                 .FirstOrDefaultAsync(cancellationToken);
         }
 

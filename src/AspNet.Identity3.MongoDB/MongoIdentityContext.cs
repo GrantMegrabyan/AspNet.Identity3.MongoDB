@@ -27,7 +27,6 @@ namespace AspNet.Identity3.MongoDB
                 BsonClassMap.RegisterClassMap<IdentityUser>(cm =>
                 {
                     cm.AutoMap();
-                    cm.IdMemberMap.SetSerializer(new StringSerializer(BsonType.ObjectId));
                 });
             }
         }

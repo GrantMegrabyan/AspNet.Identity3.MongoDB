@@ -13,7 +13,7 @@ namespace AspNet.Identity3.MongoDB
     {
         public IdentityRole()
         {
-            Id = ObjectId.GenerateNewId().ToString();
+            Id = ObjectId.GenerateNewId();
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace AspNet.Identity3.MongoDB
         /// <summary>
         /// Role Id
         /// </summary>
-        public string Id { get; set; }
+        public ObjectId Id { get; set; }
 
         /// <summary>
         /// Role name
