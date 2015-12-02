@@ -14,7 +14,7 @@ Add dependency to you project.json:
         ...
 	    "dependencies": {
 		    ...,
-		    "AspNet.Identity3.MongoDB": "1.0.0-beta8"
+		    "AspNet.Identity3.MongoDB": "1.0-rc1-final-u1"
 	    },
         ...
     }
@@ -26,20 +26,20 @@ Here I'm going to show how to use AspNet.Identity3.MongoDB in ASP.NET 5 MVC samp
 ### User and Role Model
 
 First we need models for users and roles.
-Create ApplicationUser derived from MongoIdentityUser: 
+Create ApplicationUser derived from IdentityUser: 
 
-    public class ApplicationUser : MongoIdentityUser
+    public class ApplicationUser : IdentityUser
     {
 
     }
 
-For roles I'll use MongoIdentityRole class.
+For roles I'll use IdentityRole class.
 
 ### DbContext
 
 Derive ApplicationDbContext class from MongoIdentityContext:
 
-    public class ApplicationDbContext : MongoIdentityContext<ApplicationUser, MongoIdentityRole>
+    public class ApplicationDbContext : MongoIdentityContext<ApplicationUser, IdentityRole>
     {
         public ApplicationDbContext()
             : base()
@@ -50,7 +50,7 @@ Derive ApplicationDbContext class from MongoIdentityContext:
             var database = client.GetDatabase(databaseName);
 
             this.Users = database.GetCollection<ApplicationUser>("users");
-            this.Roles = database.GetCollection<MongoIdentityRole>("roles");
+            this.Roles = database.GetCollection<IdentityRole>("roles");
         }
     }
 
@@ -62,8 +62,9 @@ In Startup.cs:
     {
         services.AddSingleton<ApplicationDbContext>();
 
-        services.AddIdentity<ApplicationUser, MongoIdentityRole>(Configuration)
-            .AddMongoStores<ApplicationDbContext, ApplicationUser, MongoIdentityRole>();
+        services.AddIdentity<ApplicationUser, IdentityRole>()
+            .AddMongoStores<ApplicationDbContext, ApplicationUser, IdentityRole>()
+            .AddDefaultTokenProviders();
 
         ...
     }
