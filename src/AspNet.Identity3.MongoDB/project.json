@@ -1,5 +1,5 @@
 {
-  "version": "1.0-rc1-final-u1",
+  "version": "1.0-rc1-final-u2",
   "authors": [ "Grant Megrabyan" ],
   "description": "ASP.NET 5 Identity 3 provider with MongoDB as storage",
   "dependencies": {
