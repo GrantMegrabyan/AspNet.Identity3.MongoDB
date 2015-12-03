@@ -25,8 +25,7 @@ namespace Tests
         {
             var user = new IdentityUser();
 
-            ObjectId userObjectId;
-            ObjectId.TryParse(user.Id, out userObjectId);
+            ObjectId userObjectId = user.Id;
 
             Assert.NotNull(userObjectId);
             Assert.NotEqual(userObjectId, ObjectId.Empty);
