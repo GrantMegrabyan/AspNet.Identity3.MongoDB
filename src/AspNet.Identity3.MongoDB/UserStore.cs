@@ -197,7 +197,7 @@ namespace AspNet.Identity3.MongoDB
                 .Where(l => l.LoginProvider == loginProvider &&
                             l.ProviderKey == providerKey);
 
-            foreach (var login in loginsToRemove)
+            foreach (var login in loginsToRemove.ToArray())
             {
                 user.Logins.Remove(login);
             }
