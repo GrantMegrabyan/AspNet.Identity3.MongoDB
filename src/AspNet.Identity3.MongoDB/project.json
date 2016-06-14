@@ -1,13 +1,13 @@
 {
-  "version": "1.0-rc1-final-u2",
+  "version": "1.0-rc2-final",
   "authors": [ "Grant Megrabyan" ],
   "description": "ASP.NET 5 Identity 3 provider with MongoDB as storage",
   "dependencies": {
-    "MongoDb.Driver": "2.1.1",
-    "Microsoft.AspNet.Identity": "3.0.0-*"
+    "MongoDb.Driver": "2.2.4",
+    "Microsoft.AspNet.Identity": "3.0.0-rc1-final"
   },
 
   "frameworks": {
-    "dnx451": { }
+    "net451": { }
   }
 }
