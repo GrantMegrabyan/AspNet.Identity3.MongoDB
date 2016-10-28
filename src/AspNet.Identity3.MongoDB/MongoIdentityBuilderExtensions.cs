@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace AspNet.Identity3.MongoDB
